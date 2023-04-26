@@ -1,11 +1,9 @@
-from pymongo import MongoClient
+from database.mongodb import *
 
 class ProductCollection:
     def __init__(self):
-        # Conexión a la base de datos
-        client = MongoClient()
-        self.db = client['mi_basedatos']
-        self.collection = self.db['productos']
+        # Conexión a la base de datos 
+        self.collection = MONGODB['productos']
 
     def create_product(self, product):
         """

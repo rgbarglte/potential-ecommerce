@@ -1,11 +1,9 @@
-from pymongo import MongoClient
 from bson.objectid import ObjectId
+from database.mongodb import *
 
 class Category:
-    def __init__(self):
-        self.client = MongoClient('localhost', 27017)
-        self.db = self.client['my_database']
-        self.collection = self.db['categories']
+    def __init__(self): 
+        self.collection = MONGODB['categories']
         
     def create(self, name):
         category = {'name': name}
@@ -40,4 +38,10 @@ class Category:
             return True
         else:
             return False
+        
+    def get_all_categorys(self):
+        """
+        Obtiene todos las categorias de la colección
+        """
+        return self.collection.find()
 

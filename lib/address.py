@@ -1,11 +1,10 @@
+from database.mongodb import MONGODB
 from bson.objectid import ObjectId
-from pymongo import MongoClient
+
 
 class Address:
     def __init__(self, address_id=None):
-        self.client = MongoClient('mongodb://localhost:27017/')
-        self.db = self.client['myapp']
-        self.collection = self.db['addresses']
+        self.collection = MONGODB['address']
         if address_id:
             self.address = self.collection.find_one({'_id': ObjectId(address_id)})
         else:
@@ -45,10 +44,8 @@ class Address:
         self.collection.delete_one({'_id': self.address['_id']})
 
     @classmethod
-    def find_by_user_id(cls, user_id):
-        client = MongoClient('mongodb://localhost:27017/')
-        db = client['myapp']
-        collection = db['addresses']
+    def find_by_user_id(cls, user_id): 
+        collection = MONGODB['address']
         addresses = []
         for address in collection.find({'user_id': ObjectId(user_id)}):
             addresses.append(Address(str(address['_id'])))
