@@ -1,7 +1,7 @@
 from typing import List
 from datetime import datetime
 from bson.objectid import ObjectId
-from pymongo import MongoClient
+from database.mongodb import *
 
 
 class Cart:
@@ -10,7 +10,7 @@ class Cart:
         self.items = []
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        self.db = MongoClient()['myapp']['carts']
+        self.db = MONGODB['carts']
 
     def add_item(self, product_id: str, quantity: int):
         for item in self.items:

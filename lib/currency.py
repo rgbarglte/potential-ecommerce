@@ -1,8 +1,10 @@
-class ProductCurrency:
+from database.mongodb import *
+
+class Currency:
     def __init__(self, product_id):
         self.product_id = product_id
         self.currencies = {}
-        self.collection = db.product_currency_collection  # Aquí se establece la conexión con la base de datos
+        self.collection = MONGODB['productos']  # Aquí se establece la conexión con la base de datos
 
     def add_currency(self, currency_code, price):
         """Agrega una nueva moneda y su precio al producto"""
